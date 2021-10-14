@@ -42,7 +42,7 @@ class Subtract extends CalculatorFunctions{
 
     get equals (){
         const result = this.entries.reduce(
-            (acc, curr) => acc - curr, 0
+            (acc, curr) => acc - curr
         )
 
         super.saveOperations(this.entries.join('-'), result)
