@@ -1,82 +1,78 @@
-class CalculatorFunctions {
-    constructor (){
-        this.operations = new Map();
+class Calculator {
+    constructor (operator){
+        this.operator = operator;
+        this.solved = new Map();
         this.entries = []
     }
 
-    get list() {console.log(this.operations)}
-    get reset() {this.operations.clear(); this.entries = []}
+    get list() {console.log(this.solved)}
+    get reset() {this.solved = new Map(); this.entries = []}
 
-    saveOperations (arr, result) {this.operations.set(arr, result)}
+    saveOperations(operation, result) {this.solved.set(operation, result)}
 
     enter(number){
         typeof number == 'number' ?
         (this.entries = [...this.entries, number]) : console.log('Invalid entry! It should be a number!')
     }
 
-    equals() {
-        this.entries = []
+    equals(callbackFn) {
+        const result = callbackFn(this.entries)
+        this.saveOperations((`${this.entries.join(` ${this.operator} `)}`), result)
+        return result
     }
 }
 
-class Add extends CalculatorFunctions{
+class Add extends Calculator{
     constructor(){
-        super()
+        super('+')
     }
 
     get equals (){
-        const result = this.entries.reduce(
-            (acc, curr) => acc + curr, 0
+        return super.equals(
+            entries => entries.reduce(
+                (acc, curr) => acc + curr
+            )
         )
-
-        super.saveOperations(this.entries.join('+'), result)
-        super.equals();
-        return result;
     }
 }
 
-class Subtract extends CalculatorFunctions{
+class Subtract extends Calculator{
     constructor(){
-        super()
+        super('-')
     }
 
     get equals (){
-        const result = this.entries.reduce(
-            (acc, curr) => acc - curr
+        return super.equals(
+            entries => entries.reduce(
+                (acc, curr) => acc - curr
+            )
         )
-
-        super.saveOperations(this.entries.join('-'), result)
-        super.equals();
-        return result;
     }
 }
 
-class Divide extends CalculatorFunctions{
+class Divide extends Calculator{
     constructor(){
-        super()
+        super('/')
     }
 
     get equals (){
-        let [n1, n2] = this.entries
-        const result = n2 !== 0 ? +n1 / +n2 : 'can\'t divide by zero'
-
-        super.saveOperations(this.entries.join('/'), result)
-        super.equals();
-        return result;
+        return super.equals( entries => {
+            let [n1, n2] = entries
+            return n2 !== 0 ? +n1 / +n2 : 'can\'t divide by zero'
+        })
     }
 }
 
-class Multiply extends CalculatorFunctions{
+class Multiply extends Calculator{
     constructor(){
-        super()
+        super('*')
     }
 
     get equals (){
-        let [n1, n2] = this.entries
-        const result = n1 * n2
-
-        super.saveOperations(this.entries.join('*'), result)
-        super.equals();
-        return result;
+        return super.equals(
+            entries => entries.reduce(
+                (acc, curr) => acc * curr
+            )
+        )
     }
 }
