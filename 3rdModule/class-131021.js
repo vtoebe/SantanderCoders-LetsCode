@@ -54,12 +54,17 @@ class Divide extends Calculator{
     constructor(){
         super('/')
     }
-
+    
+    enter(number){
+        number !== 0 ? super.enter(number) : console.log('can\'t divide by zero')
+    }
+    
     get equals (){
-        return super.equals( entries => {
-            let [n1, n2] = entries
-            return n2 !== 0 ? +n1 / +n2 : 'can\'t divide by zero'
-        })
+        return super.equals(
+            entries => entries.reduce(
+                (acc, curr) =>  +acc / +curr
+            )
+        )
     }
 }
 
