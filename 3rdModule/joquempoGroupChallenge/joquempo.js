@@ -2,17 +2,7 @@ class Joquempo {
     constructor(){
         this.player1 = [];
         this.player2 = [];
-        this._playerHistory = {player1: {wins: 0, losses: 0},
-                             player2: {wins: 0, losses: 0}};
-        this.jogadas = [];
-    }
-    
-    get jogadas(){
-        return this.jogadas
-    }
-
-    set jogadas(jogada){
-        this.jogadas = jogada;
+        this.jogadas = []
     }
 
     savePlays(){
@@ -22,15 +12,18 @@ class Joquempo {
     start(player1, player2){
         this.player1 = player1;
         this.player2 = player2;
+        this.jogadas = {player1: {name: `${player1.name}`, jogadas: `${player1._hand}`, history: {wins: 0, losses: 0}},
+                        player2: {name: `${player2.name}`, jogadas: `${player2._hand}`, history: {wins: 0, losses: 0}}
+                        };
     }
-
-    result(jogadas){
-        
+    
+    result(){
         if (jogadas.length == 2){
-               
+               console.log('entrou aqui')
         }
     }
 }
+
 
 class Player {
     constructor(name){
@@ -41,7 +34,13 @@ class Player {
 
     play(game, hand){
         this._hand.push(hand);
-        game.jogadas = [...game.jogadas, hand];
+        if (game.player1.name == this.name){
+            game.jogadas['player1']['jogadas'] = [...game.jogadas['player1']['jogadas'], hand]
+            console.log('entrou aqui')
+        } else {
+            game.jogadas['player2']['jogadas'] = [...game.jogadas['player2']['jogadas'], hand]
+            console.log('entrou aqui')
+        }
     }
 
     playedHistory(){
