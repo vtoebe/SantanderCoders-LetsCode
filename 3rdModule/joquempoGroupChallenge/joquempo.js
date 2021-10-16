@@ -28,6 +28,10 @@ class Joquempo {
       } else {
         this.updatePlayerHistory('player2', hand)
       }
+  
+      if (this.player1._hand.length == this.player2._hand.length){
+          console.log(this.result());
+      }
     }
   
     result(){
@@ -94,17 +98,14 @@ class Joquempo {
   let jogo1 = new Joquempo()
   jogo1.start(vitoria, pedro)
   
-  // copy/paste one by one to test conditionals
-  vitoria.play(jogo1, 'pedra')
-  pedro.play(jogo1, 'pedra')
-  jogo1.result()
-  
-  vitoria.play(jogo1, 'pedra')
-  pedro.play(jogo1, 'papel')
-  jogo1.result()
-  
-  vitoria.play(jogo1, 'tesoura')
-  pedro.play(jogo1, 'pedra')
-  jogo1.result()
-  
+ // copy/paste one by one to test conditionals
+ vitoria.play(jogo1, 'pedra')
+ pedro.play(jogo1, 'pedra')
+ 
+ vitoria.play(jogo1, 'pedra')
+ pedro.play(jogo1, 'papel')
+ 
+ vitoria.play(jogo1, 'tesoura')
+ pedro.play(jogo1, 'pedra')
+ 
   console.log(jogo1.playerHistory)
