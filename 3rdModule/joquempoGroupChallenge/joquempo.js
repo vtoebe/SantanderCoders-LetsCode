@@ -28,84 +28,70 @@ class Joquempo {
       } else {
         this.updatePlayerHistory('player2', hand)
       }
-  
-      if (this.player1._hand.length == this.player2._hand.length){
+
+      if (this.playerHistory.player1.played.length == this.playerHistory.player2.played.length){
           console.log(this.result());
       }
     }
   
     result(){
         let winner = [];
-          if (this.playerHistory.player1.played && this.playerHistory.player2.played !== undefined){
-              
-              if (this.player1._hand.at(-1) == 'pedra') {
-                  if (this.player2._hand.at(-1) == 'pedra') {
-                      winner = 'empate';
-                  } else if (this.player2._hand.at(-1) == 'papel') {
-                      winner = this.player2.name;
-                  } else if (this.player2._hand.at(-1) == 'tesoura') {
-                      winner = this.player1.name;
-                  }
-  
+              if (this.player1._hand == this.player2._hand) {
+                winner = 'empate';
+              } else if (this.player1._hand == 'papel' && this.player2._hand == 'pedra') {
+                winner = this.player1.name;
+              } else if (this.player1._hand == 'tesoura' && this.player2._hand == 'papel') {
+                winner = this.player1.name;
+              } else if (this.player1._hand == 'pedra' && this.player2._hand == 'tesoura') {
+                winner = this.player1.name;
+              } else {
+                winner = this.player2.name;
               }
-  
-              if (this.player1._hand.at(-1) == 'papel') {
-                  if (this.player2._hand.at(-1) == 'pedra') {
-                      winner = this.player1.name;
-                  } else if (this.player2._hand.at(-1) == 'papel') {
-                      winner = 'empate';
-                  } else if (this.player2._hand.at(-1) == 'tesoura') {
-                      winner = this.player2.name;
-                  }
-              }
-  
-              if (this.player1._hand.at(-1) == 'tesoura') {
-                  if (this.player2._hand.at(-1) == 'pedra') {
-                      winner = this.player2.name;
-                  } else if (this.player2._hand.at(-1) == 'papel') {
-                      winner = this.player1.name;
-                  } else if (this.player2._hand.at(-1) == 'tesoura') {
-                      winner = 'empate';
-                  }
-              } 
-  
               return winner == 'empate' ? 'Empatou!' : `Resultado: ${winner} venceu!`;
-          }
       }
   }
   
   class Player {
     constructor(name) {
       this.name = name
-      this._hand = [];
+      this._hand = '';
       this.playerHistory = { wins: 0, losses: 0 };
     }
   
-  
     play(game, hand) {
-      this._hand.push(hand);
+      this.setHandHistory(hand);
       game.receivePlay(hand, this.name)
     }
+
+    setHandHistory(hand) {
+      this._hand = hand;
+    }
   
-    playedHistory() {
-      // show the hand array
+    getHandHistory() {
+      return this._hand;
+    }
+
+    getPlayerHistory() {
+      return this.playerHistory;
     }
   }
-  
   
   let vitoria = new Player('Vitoria')
   let pedro = new Player('Pedro')
   let jogo1 = new Joquempo()
-  jogo1.start(vitoria, pedro)
+  jogo1.start(vitoria, pedro);
   
- // copy/paste one by one to test conditionals
- vitoria.play(jogo1, 'pedra')
- pedro.play(jogo1, 'pedra')
- 
+  // copy/paste one by one to test conditionals
+  vitoria.play(jogo1, 'pedra')
+  pedro.play(jogo1, 'pedra')
+
  vitoria.play(jogo1, 'pedra')
  pedro.play(jogo1, 'papel')
  
  vitoria.play(jogo1, 'tesoura')
  pedro.play(jogo1, 'pedra')
+
+ vitoria.play(jogo1, 'pedra')
+  pedro.play(jogo1, 'tesoura')
  
-  console.log(jogo1.playerHistory)
+ console.log(jogo1.playerHistory);
