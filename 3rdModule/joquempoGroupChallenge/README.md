@@ -39,6 +39,28 @@ playerName.play(gameName, 'papel')
 player2Name.play(gameName, 'pedra')
 ```
 
+### Here's how the game being played looks like:
+```js
+let luci = new Player('Lucien')
+let matt = new Player('Matthew')
+let jokenpo = new Joquempo()
+jokenpo.start(luci, matt)
+luci.play(jokenpo, 'pedra')
+matt.play(jokenpo, 'papel')
+// Matthew ganhou a mão!
+
+luci.play(jokenpo, 'tesoura')
+matt.play(jokenpo, 'pedra')
+// Matthew ganhou a mão!
+
+luci.play(jokenpo, 'tesoura')
+matt.play(jokenpo, 'papel')
+// Lucien ganhou a mão!
+
+jokenpo.endGame
+// Acabou o Jogo! Matthew venceu! Placar: Lucien 1 x 2 Matthew
+// Scores zerados!
+```
 
 #
 # Santander Coders | Let's Code
