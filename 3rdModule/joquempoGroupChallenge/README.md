@@ -1,4 +1,4 @@
-<h1 align="center"> JokenPo Group Challenge </h1>
+# JokenPo Game </h1>
 
 ## How to Play
 ### 1. Create two players
@@ -32,22 +32,25 @@ player2Name.play(gameName, 'tesoura')
 ```js
 gameName.endGame
 ```
-###### All the players score will be reset and you can stop playing or keep playing with clean scores.
-###### You can keep playing by just using the *play* function, no need to start a new game.
+###### All players' scores will be reset and you can stop playing or keep playing, starting from zero again.
+###### If you'd like to keep playing, jsut use the *play* function again, no need to start a new game.
 ```js
 playerName.play(gameName, 'papel')
 player2Name.play(gameName, 'pedra')
 ```
 
 
+#
+# Santander Coders | Let's Code
+### Joquempo.js was developed by
+* Michele Felix de Godoy Monteiro
+* Pedro Ruas
+* Tiago Correa Sant'Ana
+* Vitória Regina Ragazzon Toebe
+##### We chose to develop this game for the final assignment on our Web Full Stack course.
+#
 
-Alunos: 
-Michele Felix de Godoy Monteiro
-Pedro Ruas
-Tiago Correa Sant'Ana
-Vitória Regina Ragazzon Toebe
-
-### The Game (advanced)
+### Instructions | The Game (advanced)
 Pick one of three games: Chess, Poker, or Roshambo (rock, paper, scissors). Roshambo is the easiest, followed by Poker, then Chess.
 
 * Your game should have a **Game** object shat should be responsible for keeping track of it's state
