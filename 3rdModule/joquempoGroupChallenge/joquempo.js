@@ -1,5 +1,5 @@
 /*
-Alunos: 
+Developed by:
 Michele Felix de Godoy Monteiro
 Pedro Ruas
 Tiago Correa Sant'Ana
@@ -83,13 +83,11 @@ class Joquempo {
   
     result() {
       const [winner, loser] = this.checkHand()
-      if (winner === 'player1' || winner === 'player2') { this.updatePlayerScore(winner, loser) }
-  
-      const scorePlayer1 = this.getPlayerWins('player1')
-      const scorePlayer2 = this.getPlayerWins('player2')
-      const gameScore = `${this.player1.name} ${scorePlayer1} x ${scorePlayer2} ${this.player2.name}`
-  
-      return this.getWinner();
+      if (winner === 'player1' || winner === 'player2') { 
+        this.updatePlayerScore(winner, loser)
+        return `${this.getPlayerName([winner])} ganhou a rodada!`
+      }
+      return "Empatou!"
     }
   
     getTotalScore() {
@@ -97,15 +95,15 @@ class Joquempo {
     }
   
     getWinner() {
-      if (this.getPlayerWins('player1') === this.getPlayerWins('player2')) return `Empatou! ${this.getTotalScore()}`
+      if (this.getPlayerWins('player1') === this.getPlayerWins('player2')) return `Empatou!`
   
       return this.getPlayerWins('player1') > this.getPlayerWins('player2') ?
-        `${this.getPlayerName('player1')} venceu! ${this.getTotalScore()}` :
-        `${this.getPlayerName('player2')} venceu! ${this.getTotalScore()}`
+        `${this.getPlayerName('player1')} venceu!` :
+        `${this.getPlayerName('player2')} venceu!`
     }
   
     get endGame() {
-      console.log(`Acabou o Jogo! ${this.getWinner()}`)
+      console.log(`Acabou o Jogo! ${this.getWinner()} ${this.getTotalScore()}`)
       this.start(this.player1, this.player2);
       return console.log('Scores zerados!');
     }
