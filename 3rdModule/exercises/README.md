@@ -12,7 +12,7 @@ const neil = new Person('Neil', 'Gaiman', 60, 'Male', 'writing')
 // NEW STUDENT - parameters: same as for the creation of new Person
 const vitoria = new Student('Vitoria', 'Toebe', 29, 'Female', 'Flag Football')
 
-// NEW TEACHER - passing first name, last name, age, gender, an interest and the teached subject
+// NEW TEACHER - parameters: same as for Person, plus the teached subject
 const murillo = new Teacher('Murilo', 'Moraes', 26, 'Male', 'AI', 'JavaScript')
 ```
 
