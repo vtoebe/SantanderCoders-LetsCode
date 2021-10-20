@@ -47,15 +47,15 @@ let jokenpo = new Joquempo()
 jokenpo.start(luci, matt)
 luci.play(jokenpo, 'pedra')
 matt.play(jokenpo, 'papel')
-// Matthew ganhou a mão!
+// Matthew ganhou a rodada!
 
 luci.play(jokenpo, 'tesoura')
 matt.play(jokenpo, 'pedra')
-// Matthew ganhou a mão!
+// Matthew ganhou a rodada!
 
 luci.play(jokenpo, 'tesoura')
 matt.play(jokenpo, 'papel')
-// Lucien ganhou a mão!
+// Lucien ganhou a rodada!
 
 jokenpo.endGame
 // Acabou o Jogo! Matthew venceu! Placar: Lucien 1 x 2 Matthew
