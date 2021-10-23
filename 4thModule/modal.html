@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Teste</title>
+</head>
+
+<style>
+    body {
+        background-color: rgb(63, 62, 62);
+    }
+
+    .modal {
+        background-color: rgb(146, 205, 212);
+        width: 200px;
+        height: 100px;
+        opacity: 1;
+    }
+
+    .modal:not(.open) {
+        opacity: 0;
+    }
+</style>
+
+<body>
+    <button type="button" name="openModal">Abrir modal</button>
+    <div class="modal">
+        <form>
+            <input type="email" class="userEmail" required />
+            <button type="button" onclick="modal.close()">Fechar</button>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        const btnOpenModal = document.querySelector('button[name="openModal"]')
+        btnOpenModal.addEventListener('click', function () { modal.open() })
+
+        const modal = (function () {
+            const modal = document.querySelector('.modal')
+            const form = document.querySelector('form')
+            const userEmail = document.querySelector('.userEmail')
+            const btnSend = document.querySelector
+
+            form.onsubmit = function (evt) {
+                evt.preventDefault();
+                console.log('email recebido: ', userEmail.value)
+                close();
+            }
+
+            function open() {
+                modal.classList.add('open')
+            }
+
+            function close() {
+                modal.classList.remove('open')
+                form.reset();
+            }
+
+            return {
+                open, close
+            }
+        })()
+    </script>
+</body>
+
+</html>
