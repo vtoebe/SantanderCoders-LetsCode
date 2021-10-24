@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register New Users</title>
+</head>
+
+<style>
+    body {
+        background-color: rgb(245, 232, 225);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    h1,
+    h3 {
+        text-align: center;
+    }
+
+    form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 10px solid #f0bda9;
+    }
+
+    #userList {
+        box-sizing: border-box;
+        margin: 5px;
+        background-color: #f0bda9;
+        width: 250px;
+        height: auto;
+    }
+
+    #userList ul li {
+        list-style-type: none;
+        text-align: center;
+    }
+
+    .rmvBtn {
+        margin-left: 5px;
+    }
+</style>
+
+<body>
+    <h1>Register Users</h1>
+    <form>
+        <input type="text" id="userInput" required>
+        <button type="submit" id="btnOK">OK</button>
+    </form>
+
+    <section id="userList">
+        <h3>Users List</h3>
+        <ul></ul>
+    </section>
+
+    <script>
+        const form = document.querySelector('form');
+        const input = document.querySelector('#userInput');
+        const userList = document.querySelector('#userList ul')
+
+        function newListItem() {
+            const listedUser = document.createElement('li')
+            userList.appendChild(listedUser)
+            listedUser.innerText = input.value;
+            createRemoveBtn(listedUser)
+        }
+
+        function createRemoveBtn(user) {
+            const removeBtn = document.createElement('button')
+            removeBtn.classList.add('rmvBtn')
+            removeBtn.innerText = 'remove user'
+            removeBtn.onclick = () => deleteListItem(user)
+            user.appendChild(removeBtn)
+        }
+
+        function deleteListItem(user) {
+            user.remove();
+        }
+
+        function clearForm() {
+            form.reset();
+        }
+
+        form.addEventListener('submit', function (evt) {
+            evt.preventDefault();
+            newListItem();
+            clearForm();
+        })
+    </script>
+</body>
+
+</html>
