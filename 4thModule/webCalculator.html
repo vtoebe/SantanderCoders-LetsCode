@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Web Calculator</title>
+</head>
+
+<body>
+    <h1>Web Calculator</h1>
+    <form>
+        <label>Entre um valor:
+            <input type="text" name="numberInput">
+        </label>
+        <div>
+            <input type="radio" name="operator" value="+">+
+            <input type="radio" name="operator" value="-">-
+            <input type="radio" name="operator" value="/">/
+            <input type="radio" name="operator" value="*">*
+            <button type="submit" id="enter">enter</button>
+        </div>
+        <button type="button" id="equals">equals</button>
+        <br> <br>
+        Total: <span>0</span>
+    </form>
+    <script>
+        let calculatorModule = (() => {
+            let expression = []
+            let map = new Map();
+
+            const sum = (n1, n2) => +n1 + +n2
+            const subt = (n1, n2) => +n1 - +n2
+            const mult = (n1, n2) => +n1 * +n2
+            const div = (n1, n2) => n2 !== 0 ? +n1 / +n2 : 'can\'t divide by zero'
+
+            const operators = {
+                '+': sum,
+                '-': subt,
+                '*': mult,
+                '/': div
+            }
+
+            const saveOperations = (arr, result) => map.set(arr.join(''), result)
+
+            const enter = expressionValue => {
+                (typeof expressionValue == 'number' || operators.hasOwnProperty(expressionValue)) ?
+                    expression.push(expressionValue) : console.log('Invalid entry! It should be a number or a math operator!')
+                console.log(expression)
+            }
+
+            const equals = () => {
+                const [n1, op, n2] = expression;
+                const result = operators[op](n1, n2)
+
+                saveOperations(expression, result)
+                expression = []
+                return result;
+            }
+
+            const list = () => console.log(map);
+            const reset = () => map.clear();
+
+            return {
+                expression,
+                enter,
+                equals,
+                list,
+                reset
+            }
+        })()
+
+        const calc = calculatorModule;
+        const number = document.querySelector('input[name="numberInput"]')
+        const form = document.querySelector('form')
+        const total = document.querySelector('span')
+        const equalsBtn = document.querySelector('#equals')
+
+        function handleOperator(op) {
+            let exp = calc.expression;
+            if (exp.includes(op.value) === false) {
+                calc.enter(op.value)
+            }
+        }
+
+        form.addEventListener('submit', function (etv) {
+            const op = document.querySelector('input[name="operator"]:checked')
+            etv.preventDefault();
+            calc.enter(+number.value);
+            if (op != null) {
+                handleOperator(op)
+            }
+            form.reset();
+        })
+
+        equalsBtn.addEventListener('click', function () {
+            total.innerText = calc.equals();
+        })
+    </script>
+</body>
+
+</html>
