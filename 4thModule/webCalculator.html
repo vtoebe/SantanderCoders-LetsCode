@@ -12,29 +12,31 @@
 <body>
     <h1>Web Calculator</h1>
     <form>
-        <label>Entre um valor:
-            <input type="text" name="numberInput">
+        <label>
+            <input type="number" name="numberInput" placeholder="Enter value">
         </label>
         <div>
             <input type="radio" name="operator" value="+">+
             <input type="radio" name="operator" value="-">-
             <input type="radio" name="operator" value="/">/
             <input type="radio" name="operator" value="*">*
+            <span name="error" style="display: block;"></span>
             <button type="submit" id="enter">enter</button>
+            <button type="button" id="equals">equals</button>
         </div>
-        <button type="button" id="equals">equals</button>
-        <br> <br>
-        Total: <span>0</span>
+        <div>
+            Total: <span name="total">0</span>
+        </div>
     </form>
     <script>
         let calculatorModule = (() => {
             let expression = []
             let map = new Map();
 
-            const sum = (n1, n2) => +n1 + +n2
-            const subt = (n1, n2) => +n1 - +n2
-            const mult = (n1, n2) => +n1 * +n2
-            const div = (n1, n2) => n2 !== 0 ? +n1 / +n2 : 'can\'t divide by zero'
+            const sum = (n1, n2) => n1 + n2
+            const subt = (n1, n2) => n1 - n2
+            const mult = (n1, n2) => n1 * n2
+            const div = (n1, n2) => n2 !== 0 ? n1 / n2 : 'can\'t divide by zero'
 
             const operators = {
                 '+': sum,
@@ -46,9 +48,11 @@
             const saveOperations = (arr, result) => map.set(arr.join(''), result)
 
             const enter = expressionValue => {
-                (typeof expressionValue == 'number' || operators.hasOwnProperty(expressionValue)) ?
-                    expression.push(expressionValue) : console.log('Invalid entry! It should be a number or a math operator!')
-                console.log(expression)
+                if (typeof expressionValue == 'number' || operators.hasOwnProperty(expressionValue)) {
+                    expression.push(expressionValue)
+                } else {
+                    console.log('Invalid entry! It should be a number or a math operator!')
+                }
             }
 
             const equals = () => {
@@ -67,32 +71,43 @@
                 expression,
                 enter,
                 equals,
-                list,
-                reset
+                // TO-DO: implent
+                // list,
+                // reset
             }
         })()
 
         const calc = calculatorModule;
         const number = document.querySelector('input[name="numberInput"]')
         const form = document.querySelector('form')
-        const total = document.querySelector('span')
+        const total = document.querySelector('span[name="total"]')
         const equalsBtn = document.querySelector('#equals')
+        const error = document.querySelector('span[name="error"]')
 
-        function handleOperator(op) {
+        const handleExpression = (op, num) => {
             let exp = calc.expression;
-            if (exp.includes(op.value) === false) {
-                calc.enter(op.value)
+            if (op == null && !exp.includes("+", "-", "*", "/")) {
+                return error.innerHTML = '<span style="color: red"> Select operator! </span>'
             }
+            calc.enter(num)
+            if (op != null) {
+                error.innerHTML = ''
+                if (exp.indexOf(op.value) < 1) {
+                    calc.enter(op.value)
+                }
+            }
+            clearForm();
+        }
+
+        const clearForm = () => {
+            total.innerHTML = ' ';
+            form.reset();
         }
 
         form.addEventListener('submit', function (etv) {
             const op = document.querySelector('input[name="operator"]:checked')
             etv.preventDefault();
-            calc.enter(+number.value);
-            if (op != null) {
-                handleOperator(op)
-            }
-            form.reset();
+            handleExpression(op, +number.value);
         })
 
         equalsBtn.addEventListener('click', function () {
