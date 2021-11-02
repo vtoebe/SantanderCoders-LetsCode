@@ -9,23 +9,105 @@
     <title>Web Calculator</title>
 </head>
 
+<style>
+    :root {
+        --primary: #B96442;
+        --secondary: #D7A089;
+        --terciary: #F1DDD5;
+    }
+
+    body {
+        background-color: var(--terciary);
+        text-align: center;
+    }
+
+    h1 {
+        color: var(--secondary);
+        font-size: 60px;
+        text-shadow: 2px 2px 2px var(--primary);
+    }
+
+    div {
+        margin-top: 10px;
+    }
+
+    form input[name="numberInput"] {
+        width: 300px;
+        height: 50px;
+        font-size: 50px;
+        border-width: 0px;
+        border: none;
+        outline: none;
+        background-color: var(--terciary);
+        border-bottom: 2px solid var(--primary);
+        color: var(--primary);
+        text-align: center;
+    }
+
+    input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+
+    ::placeholder {
+        color: var(--secondary);
+        text-align: center;
+        font-size: 25px;
+    }
+
+    input[name="operator"] {
+        opacity: 0;
+        position: fixed;
+        width: 0;
+    }
+
+    input[name="operator"]:checked+label {
+        background-color: var(--primary);
+        border: 2px solid var(--secondary);
+        color: var(--terciary);
+    }
+
+    label:hover {
+        background-color: var(--primary);
+        color: var(--terciary);
+    }
+
+    label,
+    button {
+        display: inline-block;
+        border: none;
+        background-color: var(--secondary);
+        padding: 10px 20px;
+        font-size: 20px;
+        box-shadow: 2px 2px 2px var(--primary);
+        border-radius: 10px;
+        margin: 10px 5px 0 5px;
+        color: var(--primary);
+        font-weight: bolder;
+    }
+
+    span {
+        margin-top: 10px;
+        color: var(--primary);
+        font-size: 50px;
+    }
+</style>
+
 <body>
     <h1>Web Calculator</h1>
     <form>
-        <label>
-            <input type="number" name="numberInput" placeholder="Enter value">
-        </label>
+        <input type="number" name="numberInput" placeholder="Enter value" autocomplete="off">
+
         <div>
-            <input type="radio" name="operator" value="+">+
-            <input type="radio" name="operator" value="-">-
-            <input type="radio" name="operator" value="/">/
-            <input type="radio" name="operator" value="*">*
+            <input type="radio" name="operator" id="add" value="+"><label for="add">+</label>
+            <input type="radio" name="operator" id="subtract" value="-"><label for="subtract">-</label>
+            <input type="radio" name="operator" id="divide" value="/"><label for="divide">/</label>
+            <input type="radio" name="operator" id="multiply" value="*"><label for="multiply">×</label>
             <span name="error" style="display: block;"></span>
-            <button type="submit" id="enter">enter</button>
-            <button type="button" id="equals">equals</button>
+            <button type="submit" id="enter">Enter</button>
+            <button type="button" id="equals">Equals</button>
         </div>
         <div>
-            Total: <span name="total">0</span>
+            <span name="total">0</span>
         </div>
     </form>
     <script>
@@ -53,6 +135,7 @@
                 } else {
                     console.log('Invalid entry! It should be a number or a math operator!')
                 }
+                console.log(expression)
             }
 
             const equals = () => {
@@ -71,6 +154,7 @@
                 expression,
                 enter,
                 equals,
+                reset
                 // TO-DO: implent
                 // list,
                 // reset
@@ -86,8 +170,8 @@
 
         const handleExpression = (op, num) => {
             let exp = calc.expression;
-            if (op == null && !exp.includes("+", "-", "*", "/")) {
-                return error.innerHTML = '<span style="color: red"> Select operator! </span>'
+            if (op == null && exp.length < 2) {
+                return error.innerHTML = '<span> Select operator! </span>'
             }
             calc.enter(num)
             if (op != null) {
@@ -112,6 +196,7 @@
 
         equalsBtn.addEventListener('click', function () {
             total.innerText = calc.equals();
+            calc.reset();
         })
     </script>
 </body>
