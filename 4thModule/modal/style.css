@@ -1,0 +1,32 @@
+body {
+    background-color: rgb(231, 226, 223);
+    text-align: center;
+}
+
+.modal {
+    background-color: rgb(238, 123, 15);
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    width: 200px;
+    height: 100px;
+    opacity: 1;
+    margin: 0 auto;
+    padding: 10px;
+    box-shadow: 10px 10px 20px #40251380;
+    transition: .2s ease-in;
+}
+
+.modal:not(.open) {
+    opacity: 0;
+    pointer-events: none;
+    transition: .2s ease-out;
+}
+
+form {
+    text-align: center;
+}
+
+form input {
+    margin-bottom: 5px;
+}
