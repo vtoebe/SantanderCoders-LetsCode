@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Web Calculator</title>
+</head>
+
+<body>
+    <h1>Web Calculator</h1>
+    <form>
+        <input type="number" name="numberInput" placeholder="Enter value" autocomplete="off">
+
+        <div>
+            <input type="radio" name="operator" id="add" value="+"><label for="add">+</label>
+            <input type="radio" name="operator" id="subtract" value="-"><label for="subtract">-</label>
+            <input type="radio" name="operator" id="divide" value="/"><label for="divide">/</label>
+            <input type="radio" name="operator" id="multiply" value="*"><label for="multiply">×</label>
+            <span name="error" style="display: block;"></span>
+            <button type="submit" id="enter">Enter</button>
+            <button type="button" id="equals">Equals</button>
+        </div>
+        <div>
+            <span name="total">0</span>
+        </div>
+    </form>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
