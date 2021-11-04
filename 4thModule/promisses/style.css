@@ -1,0 +1,28 @@
+body {
+    background-color: #D8ECF3;
+    text-align: center;
+}
+
+h1 {
+    color: #2B657A;
+}
+
+form button {
+    box-sizing: border-box;
+    padding: 5px 10px;
+    background-color: #2B657A;
+    color: #D8ECF3;
+    font-size: 15px;
+    border-radius: 30px;
+}
+
+ul li {
+    text-align: center;
+    list-style-type: none;
+    background-color: #439DBC;
+    box-sizing: border-box;
+    font-size: 15px;
+    padding: 2px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+}
