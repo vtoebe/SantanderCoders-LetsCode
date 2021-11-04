@@ -40,10 +40,18 @@ const stopwatch = (() => {
         }
     }
 
+    const pauseTimer = () => {
+        if (_IS_RUNNING == true) {
+            _IS_RUNNING = false
+            clearInterval(updateStopwatch);
+        }
+    }
+
     const stopTimer = () => {
         if (_IS_RUNNING == true) {
             _IS_RUNNING = false
-            clearInterval(updateStopwatch)
+            clearInterval(updateStopwatch);
+            return _TIMER_DISPLAY.textContent;
         }
     }
 
@@ -56,23 +64,75 @@ const stopwatch = (() => {
 
     return {
         startTimer,
+        pauseTimer,
         stopTimer,
         resetTimer
     }
 })();
 
+const _DISABLED = 'disabled';
+
+const form = document.querySelector('form')
+const username = document.querySelector('input[name="username"]')
+const requireName = document.querySelector('span[name="errorMessage"]')
 const startBtn = document.querySelector('button[name="start"]');
+const pauseBtn = document.querySelector('button[name="pause"]');
 const stopBtn = document.querySelector('button[name="stop"]');
 const resetBtn = document.querySelector('button[name="reset"]');
+const raceList = document.querySelector('section ul')
+
+const deleteListItem = (user) => user.remove();
+
+form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+})
 
 startBtn.addEventListener('click', function () {
-    stopwatch.startTimer();
+    if (username.value.length == 0) {
+        requireName.textContent = 'You need to enter a name first'
+    }
+
+    if (username.value.length != 0) {
+        requireName.textContent = ''
+        stopwatch.startTimer();
+        startBtn.classList.add('disabled')
+        pauseBtn.classList.remove('disabled')
+        stopBtn.classList.remove('disabled')
+    }
+})
+
+pauseBtn.addEventListener('click', function () {
+    startBtn.classList.remove('disabled')
+    stopwatch.pauseTimer();
 })
 
 stopBtn.addEventListener('click', function () {
-    stopwatch.stopTimer();
+    startBtn.classList.add('disabled')
+    pauseBtn.classList.add('disabled')
+    resetBtn.classList.remove('disabled')
+    updateRaceList();
+    saveUserTime(stopwatch.stopTimer());
 })
 
 resetBtn.addEventListener('click', function () {
+    username.value = '';
+    startBtn.classList.remove('disabled')
+    pauseBtn.classList.add('disabled')
+    stopBtn.classList.add('disabled')
+    resetBtn.classList.add('disabled')
     stopwatch.resetTimer();
 })
+
+const updateRaceList = () => {
+    const user = document.createElement('li')
+    const removeBtn = document.createElement('button')
+    user.textContent = username.value;
+    raceList.appendChild(user);
+    user.appendChild(removeBtn)
+    removeBtn.onclick = () => deleteListItem(user)
+}
+
+const saveUserTime = (time) => {
+    let key = username.value;
+    sessionStorage.setItem(key, time);
+}
