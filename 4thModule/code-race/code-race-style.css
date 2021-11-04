@@ -16,6 +16,7 @@ body {
     max-width: 500px;
     margin: 20px auto;
     background-color: var(--dark);
+    color: var(--clear);
 }
 
 li {
@@ -28,12 +29,39 @@ li {
     display: flex;
     flex-flow: column wrap;
     justify-content: center;
+    align-items: center;
     height: 500px;
     border: 2px solid var(--primary);
     border-radius: 50%;
 }
 
+input[name="username"] {
+    width: 300px;
+    height: 50px;
+    font-size: 50px;
+    border-width: 0px;
+    border: none;
+    outline: none;
+    background-color: var(--dark);
+    border-bottom: 3px solid var(--primary);
+    color: var(--terciary);
+}
+
+::placeholder {
+    color: var(--secondary);
+    text-align: center;
+    font-size: 25px;
+}
+
+span[name="errorMessage"] {
+    display: block;
+    height: 15px;
+    margin: 5px 0 30px 0;
+    font-size: 16px;
+}
+
 span[name="stopwatch"] {
+    display: block;
     font-size: 80px;
     font-weight: bolder;
     color: var(--terciary);
@@ -44,10 +72,16 @@ button {
     border: none;
     background-color: var(--secondary);
     padding: 10px 20px;
-    font-size: 20px;
+    font-size: 15px;
     box-shadow: 2px 2px 2px var(--terciary);
     border-radius: 10px;
     margin: 10px 5px 0 5px;
     color: var(--clear);
-    font-weight: bolder;
+    font-weight: bold;
+}
+
+.disabled {
+    pointer-events: none;
+    background-color: var(--clear);
+    color: var(--primary);
 }
