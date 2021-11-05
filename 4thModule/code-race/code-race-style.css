@@ -36,6 +36,7 @@ li {
 }
 
 input[name="username"] {
+    text-align: center;
     width: 300px;
     height: 50px;
     font-size: 50px;
