@@ -85,3 +85,35 @@ button {
     background-color: var(--clear);
     color: var(--primary);
 }
+
+section[name="userList"] {
+    opacity: 1;
+}
+
+.listedUser {
+    display: flex;
+    flex-flow: column nowrap;
+    margin-top: 5px;
+    border-bottom: 1px solid var(--secondary);
+}
+
+.hideFromScreen {
+    opacity: 0;
+    transition: .5s ease-in;
+}
+
+div[name="winnerWindow"] {
+    color: var(--clear);
+    text-shadow: 2px 2px 2px var(--terciary);
+    margin: 20px 0;
+    font-size: 15px;
+}
+
+h1,
+h1[name="winnerUser"] {
+    font-size: 30px;
+}
+
+p[name="winnerUserTime"] {
+    font-size: 20px;
+}
