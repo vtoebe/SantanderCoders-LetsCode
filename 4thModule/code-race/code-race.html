@@ -19,11 +19,19 @@
             <li><button type="submit" name="start" class="">START</button></li>
             <li><button name="pause" class="disabled">PAUSE</button></li>
             <li><button name="stop" class="disabled">STOP</button></li>
-            <li><button name="reset" class="disabled">RESET</button></li>
+            <br>
+            <li><button name="reset" class="disabled">SAVE & RESET</button></li>
+            <br>
+            <li><button name="winner" class="disabled">SHOW WINNER</button></li>
         </ul>
     </form>
 
-    <section class="historyList">
+    <section name="userList">
+        <div class="hideFromScreen" name="winnerWindow">
+            <h1>🎉 Congratulations! 🎉</h1>
+            <h1 name="winnerUser">Teste</h1>
+            <p name="winnerUserTime">01 : 01 : 01 </p>
+        </div>
         <ul></ul>
     </section>
     <script src="script.js"> </script>
