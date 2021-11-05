@@ -50,9 +50,9 @@ const stopwatch = (() => {
     const stopTimer = () => {
         if (_IS_RUNNING == true) {
             _IS_RUNNING = false
-            clearInterval(updateStopwatch);
-            return _TIMER_DISPLAY.textContent;
         }
+        clearInterval(updateStopwatch);
+        return _TIMER_DISPLAY.textContent;
     }
 
     const resetTimer = () => {
@@ -79,15 +79,20 @@ const startBtn = document.querySelector('button[name="start"]');
 const pauseBtn = document.querySelector('button[name="pause"]');
 const stopBtn = document.querySelector('button[name="stop"]');
 const resetBtn = document.querySelector('button[name="reset"]');
-const raceList = document.querySelector('section ul')
+const winnerBtn = document.querySelector('button[name="winner"]');
+const userList = document.querySelector('section ul')
+const winnerWindow = document.querySelector('div[name="winnerWindow"]')
+const winnerName = document.querySelector('h1[name="winnerUser"]')
+const winnerTime = document.querySelector('p[name="winnerUserTime"] ')
 
-const deleteListItem = (user) => user.remove();
 
 form.addEventListener('submit', function (evt) {
     evt.preventDefault();
 })
 
 startBtn.addEventListener('click', function () {
+    userList.classList.remove('hideFromScreen')
+    winnerWindow.classList.add('hideFromScreen')
     if (username.value.length == 0) {
         requireName.textContent = 'You need to enter a name first'
     }
@@ -98,6 +103,7 @@ startBtn.addEventListener('click', function () {
         startBtn.classList.add('disabled')
         pauseBtn.classList.remove('disabled')
         stopBtn.classList.remove('disabled')
+        winnerBtn.classList.add('disabled')
     }
 })
 
@@ -109,25 +115,35 @@ pauseBtn.addEventListener('click', function () {
 stopBtn.addEventListener('click', function () {
     startBtn.classList.add('disabled')
     pauseBtn.classList.add('disabled')
+    stopBtn.classList.add('disabled')
     resetBtn.classList.remove('disabled')
-    updateRaceList();
     saveUserTime(stopwatch.stopTimer());
 })
 
 resetBtn.addEventListener('click', function () {
-    username.value = '';
     startBtn.classList.remove('disabled')
+    winnerBtn.classList.remove('disabled')
     pauseBtn.classList.add('disabled')
     stopBtn.classList.add('disabled')
     resetBtn.classList.add('disabled')
+    updateUserList();
     stopwatch.resetTimer();
+    username.value = '';
 })
 
-const updateRaceList = () => {
+winnerBtn.addEventListener('click', function () {
+    saveFastest();
+    showWinner();
+})
+
+const deleteListItem = (user) => user.remove();
+
+const updateUserList = () => {
     const user = document.createElement('li')
+    user.classList.add('appearOnScreen')
     const removeBtn = document.createElement('button')
-    user.textContent = username.value;
-    raceList.appendChild(user);
+    user.textContent = `${username.value} | ${sessionStorage.getItem(username.value)}`;
+    userList.appendChild(user);
     user.appendChild(removeBtn)
     removeBtn.onclick = () => deleteListItem(user)
 }
@@ -135,4 +151,35 @@ const updateRaceList = () => {
 const saveUserTime = (time) => {
     let key = username.value;
     sessionStorage.setItem(key, time);
+}
+
+const getFastest = () => {
+    let userList = Object.keys(sessionStorage);
+    let fastestUser = sessionStorage.key(0);
+    let time = sessionStorage.getItem(fastestUser);
+
+    for (const key of userList) {
+        if (Date.parse(sessionStorage.getItem(key)) < Date.parse(sessionStorage.getItem(fastestUser))) {
+            console.log(sessionStorage.key)
+            fastestUser = key;
+            time = sessionStorage.getItem(key)
+        }
+    }
+    return [fastestUser, time];
+}
+
+const clearLocalStorage = () => localStorage.clear();
+
+const saveFastest = () => {
+    clearLocalStorage();
+    let [user, time] = getFastest();
+    localStorage.setItem(user, time)
+    console.log(`${localStorage.key(user)} | ${localStorage.getItem(user)}`)
+}
+
+const showWinner = () => {
+    userList.classList.add('hideFromScreen')
+    winnerWindow.classList.remove('hideFromScreen')
+    winnerName.textContent = localStorage.key(0);
+    winnerTime.textContent = localStorage.getItem(localStorage.key(0));
 }
