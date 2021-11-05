@@ -136,16 +136,12 @@ winnerBtn.addEventListener('click', function () {
     showWinner();
 })
 
-const deleteListItem = (user) => user.remove();
-
 const updateUserList = () => {
     const user = document.createElement('li')
     user.classList.add('appearOnScreen')
-    const removeBtn = document.createElement('button')
+    user.classList.add('listedUser')
     user.textContent = `${username.value} | ${sessionStorage.getItem(username.value)}`;
     userList.appendChild(user);
-    user.appendChild(removeBtn)
-    removeBtn.onclick = () => deleteListItem(user)
 }
 
 const saveUserTime = (time) => {
@@ -160,7 +156,6 @@ const getFastest = () => {
 
     for (const key of userList) {
         if (Date.parse(sessionStorage.getItem(key)) < Date.parse(sessionStorage.getItem(fastestUser))) {
-            console.log(sessionStorage.key)
             fastestUser = key;
             time = sessionStorage.getItem(key)
         }
@@ -174,7 +169,6 @@ const saveFastest = () => {
     clearLocalStorage();
     let [user, time] = getFastest();
     localStorage.setItem(user, time)
-    console.log(`${localStorage.key(user)} | ${localStorage.getItem(user)}`)
 }
 
 const showWinner = () => {
